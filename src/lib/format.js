@@ -16,6 +16,20 @@ export function formatDateTime(value) {
   return `${day}, ${time}`
 }
 
+// "15 Oct 2026, 10:32 AM" in Bangladesh time — compact version for tables.
+export function formatDateTimeShort(value) {
+  const date = value instanceof Date ? value : new Date(value)
+  if (Number.isNaN(date.getTime())) return ''
+  const day = date.toLocaleDateString('en-GB', {
+    timeZone: DHAKA,
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+  const time = date.toLocaleTimeString('en-US', { timeZone: DHAKA, hour: 'numeric', minute: '2-digit' })
+  return `${day}, ${time}`
+}
+
 // "15 October 2026" in Bangladesh time.
 export function formatDate(value) {
   const date = value instanceof Date ? value : new Date(value)
