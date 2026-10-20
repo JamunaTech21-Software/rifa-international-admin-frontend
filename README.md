@@ -60,7 +60,10 @@ that and tells the backend the visitor's real IP.
 1. Import this repository in Vercel (framework Vite, build `npm run build`, output `dist`).
 2. Add these environment variables (they are **not** prefixed with `VITE_`, so they never reach the browser):
    `BACKEND_ORIGIN` (for example `https://api.rifaint.com`) and `TRUSTED_PROXY_SECRET` (same value as in the backend `.env`).
-3. Details and the first-deploy checks are in `backend/docs/vercel-proxy.md`.
+3. Set the backend's `ADMIN_URL` to this site's address (for example `https://admin.rifaint.com`) so the links in its emails point here.
+4. After the first deploy, check (details in `backend/docs/vercel-proxy.md`): sign in works, the page keeps you signed in after a refresh, and /api requests return JSON (not the app's HTML). The session cookie only works over HTTPS, which Vercel provides.
+
+A `robots.txt` and the `X-Robots-Tag` header keep the admin out of search engines; `X-Frame-Options: DENY` stops it being shown inside other sites.
 
 ## Conventions
 

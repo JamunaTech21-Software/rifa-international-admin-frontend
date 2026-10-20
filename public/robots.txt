@@ -1,0 +1,3 @@
+# The admin panel is private: keep it out of search engines.
+User-agent: *
+Disallow: /
