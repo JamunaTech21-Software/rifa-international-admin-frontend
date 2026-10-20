@@ -33,9 +33,12 @@ Port 5174 matches `ADMIN_URL` in the backend's `.env`, which the backend uses fo
 | `/login`, `/forgot-password`, `/reset-password?token=…` | Sign in and password screens | AD-01 |
 | `/` | Dashboard (stat cards, status and category bars, latest applications and messages) | AD-02 |
 | `/applications` | Applications list: search, filters, sorting, paging and CSV export (all in the URL) | AD-03 |
-| `/applications/:id` | Application detail | AD-04 |
-| `/messages`, `/messages/:id` | Messages inbox and detail | AD-05 |
-| `/users` (super admin only), `/profile` | Admin users, profile and change password | AD-05 |
+| `/applications/:id` | Application detail: personal/contact/job info, documents (signed links), status change, notes, history, delete (super admin), emails to the applicant (templates, log, resend) | AD-04, P5-01b |
+| `/jobs`, `/jobs/new`, `/jobs/:id` | Job listings for the Malaysia Jobs page: filters, create/edit, publish/unpublish, photo upload, delete (super admin) | P5-02b |
+| `/news`, `/news/new`, `/news/:id` | News & Updates posts: status filter (published/scheduled/draft), search, create/edit (plain text, blank line = new paragraph), schedule by date, publish/unpublish, cover photo, delete (super admin) | P5-03b |
+| `/messages`, `/messages/:id` | Messages inbox (unread bold, status/subject filters, search, paging) and detail (sender links, reply thread, reply by email, mark unread, archive/restore) | AD-05 |
+| `/users` (super admin only) | Admin users: add, edit (name, role, new password), activate / deactivate | AD-05 |
+| `/profile` | Own account details and change password | AD-05 |
 
 `/applications/:id`, `/messages/:id` and `/reset-password?token=…` are the addresses the backend puts in its emails.
 
@@ -60,7 +63,10 @@ that and tells the backend the visitor's real IP.
 1. Import this repository in Vercel (framework Vite, build `npm run build`, output `dist`).
 2. Add these environment variables (they are **not** prefixed with `VITE_`, so they never reach the browser):
    `BACKEND_ORIGIN` (for example `https://api.rifaint.com`) and `TRUSTED_PROXY_SECRET` (same value as in the backend `.env`).
-3. Details and the first-deploy checks are in `backend/docs/vercel-proxy.md`.
+3. Set the backend's `ADMIN_URL` to this site's address (for example `https://admin.rifaint.com`) so the links in its emails point here.
+4. After the first deploy, check (details in `backend/docs/vercel-proxy.md`): sign in works, the page keeps you signed in after a refresh, and /api requests return JSON (not the app's HTML). The session cookie only works over HTTPS, which Vercel provides.
+
+A `robots.txt` and the `X-Robots-Tag` header keep the admin out of search engines; `X-Frame-Options: DENY` stops it being shown inside other sites.
 
 ## Conventions
 

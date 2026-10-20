@@ -4,11 +4,13 @@ import { apiGet } from '@/lib/api'
 /**
  * Loads a GET endpoint and tracks its state.
  *
- * Returns { data, meta, loading, error, reload }:
+ * Returns { data, meta, loading, error, reload, setData }:
  *   data / meta — the response's "data" and "meta" (null until loaded)
  *   loading     — true during the first load and while reloading
  *   error       — the ApiError of the last attempt (null when it worked)
  *   reload()    — fetch again (for a "Try again" button)
+ *   setData(x)  — replace the loaded data locally (x, or a function of the current data) — for edits that the
+ *                 server answered with the new record, so the page updates without another request
  * Pass path = null to wait (nothing is fetched). A new path starts a new load.
  */
 export default function useApiQuery(path) {
@@ -37,11 +39,21 @@ export default function useApiQuery(path) {
     setAttempt((value) => value + 1)
   }, [])
 
+  const setData = useCallback(
+    (next) =>
+      setState((previous) => ({
+        ...previous,
+        data: typeof next === 'function' ? next(previous.data) : next,
+      })),
+    [],
+  )
+
   return {
     data: current ? state.data : null,
     meta: current ? state.meta : null,
     error: current ? state.error : null,
     loading: !current || !state.done,
     reload,
+    setData,
   }
 }

@@ -8,6 +8,8 @@ const variants = {
   outline: 'border-[1.5px] border-primary-600 bg-white text-primary-600 hover:bg-primary-50',
   white: 'bg-white text-primary-600 shadow-sm hover:bg-primary-50',
   ghost: 'text-primary-600 hover:bg-primary-50',
+  danger: 'bg-danger-600 text-white shadow-sm hover:bg-danger-600/90 active:bg-danger-600/80',
+  dangerOutline: 'border-[1.5px] border-danger-600 bg-white text-danger-600 hover:bg-danger-50',
 }
 
 const sizes = {
