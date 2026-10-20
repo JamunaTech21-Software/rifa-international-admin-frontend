@@ -1,0 +1,167 @@
+/* Font (Figtree) is self-hosted via @fontsource and imported in main.jsx. */
+@import 'tailwindcss';
+
+/*
+ * Design tokens — sampled from the reference designs in /doc.
+ * Use these through Tailwind classes only (bg-primary-600, text-ink, font-script …). Never hardcode hex values in JSX.
+ */
+@theme {
+  /* Typography */
+  --font-sans: 'Figtree Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Figtree Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --text-display-xl: 4rem; /* page hero H1: "About Us", "Apply Now" */
+  --text-display-xl--line-height: 1.05;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display: 3.5rem; /* home hero H1 */
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.02em;
+  --text-section: 2.5rem; /* section titles: "Explore Job Opportunities" (40px, measured) */
+  --text-section--line-height: 1.15;
+  --text-section--letter-spacing: -0.01em;
+  --text-eyebrow: 0.9375rem; /* uppercase eyebrow above titles */
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.12em;
+
+  /* Brand blue — buttons, links, highlighted words */
+  --color-primary-50: #eaf4fd;
+  --color-primary-100: #d4e8fb;
+  --color-primary-200: #a9d0f6;
+  --color-primary-300: #74b2ef;
+  --color-primary-400: #3d8fe3;
+  --color-primary-500: #1675d6;
+  --color-primary-600: #0063cc;
+  --color-primary-700: #0052a8;
+  --color-primary-800: #064487;
+  --color-primary-900: #0a3a6e;
+
+  /* Navy — top bar, trust strip, footer, dark banners */
+  --color-navy-700: #12487a;
+  --color-navy-800: #0b3f6b;
+  --color-navy-900: #0a365f;
+  --color-navy-950: #002446;
+  --color-topbar-from: #003661; /* top bar is a subtle left → right gradient */
+  --color-topbar-to: #0b4672;
+
+  /* Text */
+  --color-ink: #0b2a4a; /* headings */
+  --color-body: #2a363e; /* paragraphs */
+  --color-muted: #6b7785; /* secondary text, placeholders */
+  --color-eyebrow: #14324a;
+
+  /* Surfaces & lines */
+  --color-surface: #f3f9fd; /* light blue page sections */
+  --color-surface-2: #e8f3fa; /* sidebar cards, reference boxes */
+  --color-line: #dfe7ef; /* card and input borders */
+  --color-line-strong: #c9d6e3;
+
+  /* Status */
+  --color-success-50: #e8f6ee;
+  --color-success-600: #07a358;
+  --color-success-700: #00703a; /* darkened from #008a48 to reach 4.5:1 on success-50 */
+  --color-warning-50: #fff8e6;
+  --color-warning-500: #f5a623;
+  --color-danger-50: #fdf0f1;
+  --color-danger-600: #d7313f;
+
+  /* Step / feature tones (Recruitment Process cards, About value cards) */
+  --color-tone-blue: #0b6fd1;
+  --color-tone-blue-50: #eef7fe;
+  --color-tone-green: #1f9d55;
+  --color-tone-green-50: #eaf8f3;
+  --color-tone-purple: #4f52c4;
+  --color-tone-purple-50: #f2f2fe;
+  --color-tone-orange: #ee7a1e;
+  --color-tone-orange-50: #fdf5e7;
+  --color-tone-teal: #1a9a6b;
+  --color-tone-teal-50: #edf9f5;
+  --color-tone-red: #d7313f;
+  --color-tone-red-50: #fdf0f1;
+
+  /* Bangladesh flag (PhoneInput prefix) */
+  --color-flag-bd-green: #006a4e;
+  --color-flag-bd-red: #f42a41;
+
+  /* Social network brand colours (Contact page icons) */
+  --color-brand-facebook: #1877f2;
+  --color-brand-linkedin: #0a66c2;
+  --color-brand-youtube: #ff0000;
+
+  /* Malaysia flag (hero decoration) */
+  --color-flag-my-red: #cc0001;
+  --color-flag-my-blue: #010066;
+  --color-flag-my-yellow: #ffcc00;
+
+  /* Layout */
+  --container-site: 92.5rem; /* 1480px incl. 32px padding → content starts 60px from the edge at 1536px */
+  --spacing-header: 4.625rem; /* 74px desktop header height */
+  --breakpoint-3xl: 96rem;
+
+  /* Shape */
+  --radius-btn: 0.625rem;
+  --radius-card: 0.875rem;
+
+  --shadow-card: 0 4px 20px rgb(10 54 95 / 0.08);
+  --shadow-card-hover: 0 10px 30px rgb(10 54 95 / 0.14);
+  --shadow-header: 0 2px 12px rgb(10 54 95 / 0.08);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white font-sans text-base text-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-bold text-ink;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  [tabindex] {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    @apply bg-primary-100 text-ink;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility container-site {
+  @apply mx-auto w-full max-w-site px-4 sm:px-6 lg:px-8;
+}

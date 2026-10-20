@@ -1,0 +1,12 @@
+# Store text files with LF in the repository on every OS (stops the "LF will be replaced by CRLF" warnings).
+* text=auto eol=lf
+
+# Binary files — never convert
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
