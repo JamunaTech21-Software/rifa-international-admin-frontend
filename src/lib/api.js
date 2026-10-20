@@ -2,6 +2,7 @@
  * Fetch wrapper for the admin API (backend/docs/api.md).
  *
  * - Base URL: VITE_API_BASE_URL (default "/api") + "/v1". Cookies are sent with every call (session login).
+ * - A FormData body (photo uploads) is sent as multipart; anything else as JSON.
  * - Every non-GET call carries the X-CSRF-Token header (token from login or GET /admin/auth/me).
  * - 419 (CSRF mismatch): the token is refreshed from /admin/auth/me and the call is retried once.
  * - 401 on anything except the login call: the session ended, so the registered handler is told
@@ -45,7 +46,8 @@ export function setUnauthenticatedHandler(handler) {
 
 async function send(method, path, json) {
   const headers = { Accept: 'application/json' }
-  if (json !== undefined) headers['Content-Type'] = 'application/json'
+  const isForm = json instanceof FormData // the browser sets the multipart boundary itself
+  if (json !== undefined && !isForm) headers['Content-Type'] = 'application/json'
   if (method !== 'GET' && csrfToken) headers['X-CSRF-Token'] = csrfToken
 
   let response
@@ -53,7 +55,7 @@ async function send(method, path, json) {
     response = await fetch(`${API_BASE}${path}`, {
       method,
       headers,
-      body: json !== undefined ? JSON.stringify(json) : undefined,
+      body: json === undefined ? undefined : isForm ? json : JSON.stringify(json),
       credentials: 'same-origin',
     })
   } catch {
@@ -104,5 +106,7 @@ async function request(method, path, json) {
 
 export const apiGet = (path) => request('GET', path)
 export const apiPost = (path, json) => request('POST', path, json ?? {})
+/** POST a multipart form (FormData), e.g. a photo upload. */
+export const apiPostForm = (path, form) => request('POST', path, form)
 export const apiPatch = (path, json) => request('PATCH', path, json ?? {})
 export const apiDelete = (path) => request('DELETE', path)

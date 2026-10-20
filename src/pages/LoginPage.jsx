@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Eye, EyeOff, LogIn, Mail } from 'lucide-react'
+import { LogIn, Mail } from 'lucide-react'
 import { z } from 'zod'
 import { ApiError } from '@/lib/api'
 import { safeNext } from '@/lib/nav'
 import Alert from '@/components/ui/Alert'
 import Button from '@/components/ui/Button'
 import FormField from '@/components/form/FormField'
+import PasswordInput from '@/components/form/PasswordInput'
 import TextInput from '@/components/form/TextInput'
 import { useAuth } from '@/admin/AuthProvider'
 
@@ -35,7 +36,6 @@ export default function LoginPage() {
   const { status, expired, login } = useAuth()
   const [params] = useSearchParams()
   const navigate = useNavigate()
-  const [showPassword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const next = safeNext(params.get('next'))
 
@@ -93,24 +93,11 @@ export default function LoginPage() {
         </FormField>
 
         <FormField label="Password" required error={errors.password?.message}>
-          <div className="relative">
-            <TextInput
-              type={showPassword ? 'text' : 'password'}
-              autoComplete="current-password"
-              placeholder="Enter your password"
-              className="pr-12"
-              {...register('password')}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((visible) => !visible)}
-              className="absolute inset-y-0 right-0 inline-flex w-12 items-center justify-center rounded-r-lg text-muted hover:text-ink"
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-              aria-pressed={showPassword}
-            >
-              {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
-            </button>
-          </div>
+          <PasswordInput
+            autoComplete="current-password"
+            placeholder="Enter your password"
+            {...register('password')}
+          />
         </FormField>
 
         <Button type="submit" size="lg" fullWidth iconLeft={LogIn} loading={isSubmitting}>

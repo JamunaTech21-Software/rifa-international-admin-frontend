@@ -33,9 +33,12 @@ Port 5174 matches `ADMIN_URL` in the backend's `.env`, which the backend uses fo
 | `/login`, `/forgot-password`, `/reset-password?token=…` | Sign in and password screens | AD-01 |
 | `/` | Dashboard (stat cards, status and category bars, latest applications and messages) | AD-02 |
 | `/applications` | Applications list: search, filters, sorting, paging and CSV export (all in the URL) | AD-03 |
-| `/applications/:id` | Application detail | AD-04 |
-| `/messages`, `/messages/:id` | Messages inbox and detail | AD-05 |
-| `/users` (super admin only), `/profile` | Admin users, profile and change password | AD-05 |
+| `/applications/:id` | Application detail: personal/contact/job info, documents (signed links), status change, notes, history, delete (super admin), emails to the applicant (templates, log, resend) | AD-04, P5-01b |
+| `/jobs`, `/jobs/new`, `/jobs/:id` | Job listings for the Malaysia Jobs page: filters, create/edit, publish/unpublish, photo upload, delete (super admin) | P5-02b |
+| `/news`, `/news/new`, `/news/:id` | News & Updates posts: status filter (published/scheduled/draft), search, create/edit (plain text, blank line = new paragraph), schedule by date, publish/unpublish, cover photo, delete (super admin) | P5-03b |
+| `/messages`, `/messages/:id` | Messages inbox (unread bold, status/subject filters, search, paging) and detail (sender links, reply thread, reply by email, mark unread, archive/restore) | AD-05 |
+| `/users` (super admin only) | Admin users: add, edit (name, role, new password), activate / deactivate | AD-05 |
+| `/profile` | Own account details and change password | AD-05 |
 
 `/applications/:id`, `/messages/:id` and `/reset-password?token=…` are the addresses the backend puts in its emails.
 
