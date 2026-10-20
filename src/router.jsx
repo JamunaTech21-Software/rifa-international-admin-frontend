@@ -3,6 +3,7 @@ import AdminLayout from '@/admin/AdminLayout'
 import RequireAuth from '@/admin/RequireAuth'
 import Root from '@/admin/Root'
 import AuthLayout from '@/pages/AuthLayout'
+import ApplicationsPage from '@/pages/ApplicationsPage'
 import DashboardPage from '@/pages/DashboardPage'
 import ForgotPasswordPage from '@/pages/ForgotPasswordPage'
 import LoginPage from '@/pages/LoginPage'
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
             Component: AdminLayout,
             children: [
               { index: true, Component: DashboardPage },
-              { path: 'applications', element: <PlaceholderPage title="Applications" story="AD-03" /> },
+              { path: 'applications', Component: ApplicationsPage },
               { path: 'applications/:id', Component: ApplicationDetailPlaceholder },
               { path: 'messages', element: <PlaceholderPage title="Messages" story="AD-05" /> },
               { path: 'messages/:id', Component: MessageDetailPlaceholder },

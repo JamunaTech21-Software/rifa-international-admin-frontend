@@ -11,6 +11,9 @@
 
 const API_BASE = `${import.meta.env.VITE_API_BASE_URL ?? '/api'}/v1`
 
+/** Full URL of an API path — for plain links such as the CSV export, where the browser sends the session cookie itself. */
+export const apiUrl = (path) => `${API_BASE}${path}`
+
 export class ApiError extends Error {
   constructor({
     status = 0,

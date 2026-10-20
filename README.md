@@ -32,7 +32,8 @@ Port 5174 matches `ADMIN_URL` in the backend's `.env`, which the backend uses fo
 | --- | --- | --- |
 | `/login`, `/forgot-password`, `/reset-password?token=…` | Sign in and password screens | AD-01 |
 | `/` | Dashboard (stat cards, status and category bars, latest applications and messages) | AD-02 |
-| `/applications`, `/applications/:id` | Applications list and detail | AD-03, AD-04 |
+| `/applications` | Applications list: search, filters, sorting, paging and CSV export (all in the URL) | AD-03 |
+| `/applications/:id` | Application detail | AD-04 |
 | `/messages`, `/messages/:id` | Messages inbox and detail | AD-05 |
 | `/users` (super admin only), `/profile` | Admin users, profile and change password | AD-05 |
 

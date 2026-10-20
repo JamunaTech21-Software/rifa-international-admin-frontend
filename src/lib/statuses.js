@@ -17,3 +17,19 @@ export const statusStyles = {
 const fallback = { badge: 'bg-surface-2 text-ink', bar: 'bg-muted' }
 
 export const statusStyle = (status) => statusStyles[status] ?? fallback
+
+/** The 9 statuses in workflow order, with the labels the server uses. */
+export const statusOptions = [
+  { value: 'received', label: 'Received' },
+  { value: 'under_review', label: 'Under review' },
+  { value: 'shortlisted', label: 'Shortlisted' },
+  { value: 'interview', label: 'Interview' },
+  { value: 'medical', label: 'Medical' },
+  { value: 'visa_processing', label: 'Visa processing' },
+  { value: 'departed', label: 'Departed' },
+  { value: 'on_hold', label: 'On hold' },
+  { value: 'rejected', label: 'Rejected' },
+]
+
+export const statusLabel = (status) =>
+  statusOptions.find((option) => option.value === status)?.label ?? status
